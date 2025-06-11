@@ -14,7 +14,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 SRCSDIR = srcs/
 OBJSDIR = objs/
-GNLDIR = get_next_line/
 INCLUDES = -Iheaders
 
 SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c \
@@ -24,19 +23,15 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c f
 				ft_toupper.c ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c \
 				ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c
 
-GNL_SRCS = get_next_line.c get_next_line_utils.c
-
 SRCS_MANDATORY_PATHS = $(addprefix $(SRCSDIR), $(SRCS))
-SRCS_GNL_PATHS = $(addprefix $(GNLDIR), $(GNL_SRCS))
 
 OBJS = $(addprefix $(OBJSDIR), $(SRCS:.c=.o))
-GNL_OBJS = $(addprefix $(OBJSDIR), $(GNL_SRCS:.c=.o))
 
 NAME = libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(GNL_OBJS)
+$(NAME): $(OBJS)
 		ar -rcs $@ $^
 
 $(OBJSDIR)%.o: $(SRCSDIR)%.c
@@ -44,10 +39,6 @@ $(OBJSDIR)%.o: $(SRCSDIR)%.c
 		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJSDIR)%.o: $(BONUSDIR)%.c
-		mkdir -p $(OBJSDIR)
-		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(OBJSDIR)%.o: $(GNLDIR)%.c
 		mkdir -p $(OBJSDIR)
 		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
